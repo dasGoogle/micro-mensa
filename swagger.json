@@ -1,0 +1,376 @@
+{
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"Additive": {
+				"properties": {
+					"name": {
+						"type": "string",
+						"description": "The name of the additive"
+					},
+					"abbreviation": {
+						"type": "string",
+						"description": "The abbreviation of the additive"
+					}
+				},
+				"required": [
+					"name",
+					"abbreviation"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Allergen": {
+				"properties": {
+					"name": {
+						"type": "string",
+						"description": "The name of the allergen"
+					},
+					"abbreviation": {
+						"type": "string",
+						"description": "The abbreviation of the allergen"
+					}
+				},
+				"required": [
+					"name",
+					"abbreviation"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Feature": {
+				"properties": {
+					"name": {
+						"type": "string",
+						"description": "The name of the feature"
+					},
+					"abbreviation": {
+						"type": "string",
+						"description": "The abbreviation of the feature"
+					}
+				},
+				"required": [
+					"name",
+					"abbreviation"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Location": {
+				"properties": {
+					"name": {
+						"type": "string",
+						"description": "The name of the location"
+					},
+					"id": {
+						"type": "number",
+						"format": "double",
+						"description": "The numerical ID used to access the the data for the location at the API"
+					}
+				},
+				"required": [
+					"name",
+					"id"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Meal": {
+				"properties": {
+					"name": {
+						"type": "string",
+						"description": "The name of the meal"
+					},
+					"studentPrice": {
+						"type": "number",
+						"format": "double",
+						"description": "The price of the meal for students"
+					},
+					"guestPrice": {
+						"type": "number",
+						"format": "double",
+						"description": "The price of the meal for guests"
+					},
+					"date": {
+						"type": "string",
+						"format": "date-time",
+						"description": "The when the meal is available"
+					},
+					"allergens": {
+						"items": {
+							"$ref": "#/components/schemas/Allergen"
+						},
+						"type": "array",
+						"description": "The allergens of the meal"
+					},
+					"additives": {
+						"items": {
+							"$ref": "#/components/schemas/Additive"
+						},
+						"type": "array",
+						"description": "The additives of the meal"
+					},
+					"features": {
+						"items": {
+							"$ref": "#/components/schemas/Feature"
+						},
+						"type": "array",
+						"description": "The features of the meal"
+					},
+					"isEveningMeal": {
+						"type": "boolean",
+						"description": "Whether the meal is an evening meal"
+					}
+				},
+				"required": [
+					"name",
+					"studentPrice",
+					"guestPrice",
+					"date",
+					"allergens",
+					"additives",
+					"features",
+					"isEveningMeal"
+				],
+				"type": "object",
+				"additionalProperties": false
+			}
+		},
+		"securitySchemes": {}
+	},
+	"info": {
+		"title": "mensa-api",
+		"version": "1.0.0",
+		"license": {
+			"name": "MIT"
+		},
+		"contact": {
+			"name": "Aaron Schlitt"
+		}
+	},
+	"openapi": "3.0.0",
+	"paths": {
+		"/additives/{location}": {
+			"get": {
+				"operationId": "GetAdditives",
+				"responses": {
+					"200": {
+						"description": "A list of additives including their abbreviations",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/Additive"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"description": "Retrieve a list of all additives available at a location",
+				"security": [],
+				"parameters": [
+					{
+						"description": "The location for which to retrieve additives. This is matched ignoring whitespace and capitalization.",
+						"in": "path",
+						"name": "location",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "The language in which to return the additives. Currently supported: en, de",
+						"in": "query",
+						"name": "lang",
+						"required": false,
+						"schema": {
+							"default": "en",
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/allergens/{location}": {
+			"get": {
+				"operationId": "GetAllergens",
+				"responses": {
+					"200": {
+						"description": "A list of allergens including their abbreviations",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/Allergen"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"description": "Retrieve all allergens available at a location",
+				"security": [],
+				"parameters": [
+					{
+						"description": "The location for which to retrieve allergens. This is matched ignoring whitespace and capitalization.",
+						"in": "path",
+						"name": "location",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "The language in which to return the allergens. Currently supported: en, de",
+						"in": "query",
+						"name": "lang",
+						"required": false,
+						"schema": {
+							"default": "en",
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/features/{location}": {
+			"get": {
+				"operationId": "GetFeatures",
+				"responses": {
+					"200": {
+						"description": "A list of features including their abbreviations",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/Feature"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"description": "Retrieve all features a meal can have at a given location (i.e., being vegan, vegetarian, etc.)",
+				"security": [],
+				"parameters": [
+					{
+						"description": "The name of the location. This is matched ignoring whitespace and capitalization.",
+						"in": "path",
+						"name": "location",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "The language in which to return the meals. Currently supported: en, de",
+						"in": "query",
+						"name": "lang",
+						"required": false,
+						"schema": {
+							"default": "en",
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/locations": {
+			"get": {
+				"operationId": "GetLocations",
+				"responses": {
+					"200": {
+						"description": "a list of all locations including their name and ID",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/Location"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"description": "Retrieve all locations available at the API",
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/meals/{location}": {
+			"get": {
+				"operationId": "GetMeals",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/Meal"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"description": "Retrieves all meals available at a location that match the given filters. The meals contain details on prices, allgergens, etc.",
+				"security": [],
+				"parameters": [
+					{
+						"description": "The name of the location. This is matched ignoring whitespace and capitalization.",
+						"in": "path",
+						"name": "location",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "The date for which to retrieve meals. Format: YYYY-MM-DD",
+						"in": "query",
+						"name": "date",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "Whether to retrieve evening meals or not. If not specified, all meals are returned.",
+						"in": "query",
+						"name": "evening",
+						"required": false,
+						"schema": {
+							"type": "boolean"
+						}
+					},
+					{
+						"description": "The language in which to return the meals. Currently supported: en, de",
+						"in": "query",
+						"name": "lang",
+						"required": false,
+						"schema": {
+							"default": "en",
+							"type": "string"
+						}
+					}
+				]
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "/"
+		}
+	]
+}
