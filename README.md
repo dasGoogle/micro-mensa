@@ -1,16 +1,17 @@
-# mensa
+#
 
-A lightweight mensa application
+<div align="center">
+    <h1>µmensa</h1>
+    <span>A lightweight mensa application for use with the <a href="https://github.com/dasGoogle/webspeiseplan-api">webspeiseplan-api</a> project.</span>
+    <table>
+<tr>
+<td><img src=".github/screenshot1.jpg" height="400px" /></td>
+<td><img src=".github/screenshot2.jpg" height="400px"/></tr>
+</table>
+</div>
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+The app is still in a very early beta stage but prebuilt APKs are available on the releases page.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+The app can currently be compiled for Android and Linux, but it should also be possible to compile it for iOS and other platforms.
