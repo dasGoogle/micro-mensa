@@ -1,7 +1,7 @@
 #
 
 <div align="center">
-    <h1>µmensa</h1>
+    <h1>micro-mensa</h1>
     <span>A lightweight mensa application for use with the <a href="https://github.com/dasGoogle/webspeiseplan-api">webspeiseplan-api</a> project.</span>
     <table>
 <tr>
