@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return DynamicColorBuilder(builder: (lightColorScheme, darkColorScheme) {
       return MaterialApp(
-        title: 'Flutter Demo',
+        title: 'micro-Mensa',
         theme: ThemeData(
           colorScheme: lightColorScheme ?? _defaultLightColorScheme,
           useMaterial3: true,
@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
         themeMode: ThemeMode.system,
-        home: const MyHomePage(title: 'µMensa'),
+        home: const MyHomePage(title: 'micro-Mensa'),
       );
     });
   }
@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
       ColorScheme.fromSwatch(primarySwatch: Colors.red);
 
   static final _defaultDarkColorScheme = ColorScheme.fromSwatch(
-      primarySwatch: Colors.green, brightness: Brightness.dark);
+      primarySwatch: Colors.red, brightness: Brightness.light);
 }
 
 class MyHomePage extends StatefulWidget {
