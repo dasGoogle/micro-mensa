@@ -79,6 +79,62 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"NutritionInformation": {
+				"properties": {
+					"kj": {
+						"type": "number",
+						"format": "double",
+						"description": "The energy of the meal in kJ"
+					},
+					"kcal": {
+						"type": "number",
+						"format": "double",
+						"description": "The energy of the meal in kcal"
+					},
+					"fat": {
+						"type": "number",
+						"format": "double",
+						"description": "The fat of the meal in g"
+					},
+					"saturatedFat": {
+						"type": "number",
+						"format": "double",
+						"description": "The saturated fat of the meal in g"
+					},
+					"carbohydrates": {
+						"type": "number",
+						"format": "double",
+						"description": "The carbohydrates of the meal in g"
+					},
+					"sugar": {
+						"type": "number",
+						"format": "double",
+						"description": "The sugar of the meal in g"
+					},
+					"protein": {
+						"type": "number",
+						"format": "double",
+						"description": "The protein of the meal in g"
+					},
+					"salt": {
+						"type": "number",
+						"format": "double",
+						"description": "The salt of the meal in g"
+					}
+				},
+				"required": [
+					"kj",
+					"kcal",
+					"fat",
+					"saturatedFat",
+					"carbohydrates",
+					"sugar",
+					"protein",
+					"salt"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"Meal": {
 				"properties": {
 					"name": {
@@ -124,6 +180,15 @@
 					"isEveningMeal": {
 						"type": "boolean",
 						"description": "Whether the meal is an evening meal"
+					},
+					"id": {
+						"type": "number",
+						"format": "double",
+						"description": "The id of the meal"
+					},
+					"nutritionInformation": {
+						"$ref": "#/components/schemas/NutritionInformation",
+						"description": "The nutrition information of the meal"
 					}
 				},
 				"required": [
@@ -134,7 +199,9 @@
 					"allergens",
 					"additives",
 					"features",
-					"isEveningMeal"
+					"isEveningMeal",
+					"id",
+					"nutritionInformation"
 				],
 				"type": "object",
 				"additionalProperties": false
