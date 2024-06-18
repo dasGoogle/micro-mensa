@@ -12,7 +12,7 @@
 #foo/*/qux
 # The above matches foo/bar/qux and foo/baz/qux, but not foo/bar/baz/qux
 
-# You can recursively match patterns against a directory, file or extension with a double asterisk (**):
+# You can recursively match patterns against a directory, file or extension with a num asterisk (**):
 #foo/**/qux
 # This matches foo/bar/qux, foo/baz/qux, and foo/bar/baz/qux
 

@@ -34,6 +34,7 @@ class MealDetailsScreen extends StatelessWidget {
             buildAllergensCard(context),
             buildAdditivesCard(context),
             buildFeaturesCard(context),
+            buildNutritionInformationCard(context),
           ],
         ),
       ),
@@ -41,79 +42,179 @@ class MealDetailsScreen extends StatelessWidget {
   }
 
   Card cardElement(List<Widget> content) => Card(
-    child: Padding(
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          children: content,
-        )
-    ),
-  );
+        child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: Column(
+              children: content,
+            )),
+      );
 
-  Widget priceColumn(String price, String label, BuildContext context) => Column(
-    children: [
-      Text(
-          price,
-          style: Theme.of(context).textTheme.titleLarge?.copyWith(color: Theme.of(context).colorScheme.primary)
-      ),
-      Text(
-        label,
-        style: Theme.of(context).textTheme.bodyLarge,
-      ),
-    ],
-  );
+  Widget priceColumn(String price, String label, BuildContext context) =>
+      Column(
+        children: [
+          Text(price,
+              style: Theme.of(context)
+                  .textTheme
+                  .titleLarge
+                  ?.copyWith(color: Theme.of(context).colorScheme.primary)),
+          Text(
+            label,
+            style: Theme.of(context).textTheme.bodyLarge,
+          ),
+        ],
+      );
 
   Card buildPriceCard(BuildContext context) {
-    return cardElement([ListTile(
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                priceColumn("${meal.studentPrice.toStringAsFixed(2)}€", "Studierende", context),
-                priceColumn("${meal.guestPrice.toStringAsFixed(2)}€", "Gäste", context),
-              ],
-            ),
-          )]);
+    return cardElement([
+      ListTile(
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            priceColumn("${meal.studentPrice.toStringAsFixed(2)}€",
+                "Studierende", context),
+            priceColumn(
+                "${meal.guestPrice.toStringAsFixed(2)}€", "Gäste", context),
+          ],
+        ),
+      )
+    ]);
   }
 
   Card buildTitleCard(BuildContext context) {
     String mealType = meal.isEveningMeal ? "Abendangebot" : "Mittagsangebot";
-    String mealFeatures = MealHelpers.vegetarianOrVeganFeatures(meal).map((e) => e.name).join(", ");
+    String mealFeatures = MealHelpers.vegetarianOrVeganFeatures(meal)
+        .map((e) => e.name)
+        .join(", ");
 
-    return cardElement([ListTile(
-            title: Text(
-              meal.name,
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-            subtitle: Text(
-              "$mealType${mealFeatures.isNotEmpty ? " • $mealFeatures" : ""}",
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-          )]);
+    return cardElement([
+      ListTile(
+        title: Text(
+          meal.name,
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
+        subtitle: Text(
+          "$mealType${mealFeatures.isNotEmpty ? " • $mealFeatures" : ""}",
+          style: Theme.of(context).textTheme.titleMedium,
+        ),
+      )
+    ]);
   }
 
   buildAllergensCard(BuildContext context) {
-    return buildKeyValueCard("Allergene", meal.allergens.map((e) => Pair(e.abbreviation, e.name)).toList(), context);
+    return buildKeyValueCard(
+        "Allergene",
+        meal.allergens.map((e) => Pair(e.abbreviation, e.name)).toList(),
+        context);
   }
 
   buildAdditivesCard(BuildContext context) {
-    return buildKeyValueCard("Zusatzstoffe", meal.additives.map((e) => Pair(e.abbreviation, e.name)).toList(), context);
+    return buildKeyValueCard(
+        "Zusatzstoffe",
+        meal.additives.map((e) => Pair(e.abbreviation, e.name)).toList(),
+        context);
   }
 
   buildFeaturesCard(BuildContext context) {
-    return buildKeyValueCard("Eigenschaften", meal.features.map((e) => Pair(e.abbreviation, e.name)).toList(), context);
+    return buildKeyValueCard(
+        "Eigenschaften",
+        meal.features.map((e) => Pair(e.abbreviation, e.name)).toList(),
+        context);
   }
 
   buildKeyValueCard(String title, List<Pair> pairs, BuildContext context) {
-    return cardElement([ListTile(
-            title: Text(
-              title,
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-            subtitle: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ...pairs.map((e) => Row(children: [Text(e.key, style: Theme.of(context).textTheme.titleMedium), const SizedBox(width: 16), Text(e.value, style: Theme.of(context).textTheme.bodyMedium)])),
-              ],
-            )
-          )]);
+    return cardElement([
+      ListTile(
+          title: Text(
+            title,
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+          subtitle: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ...pairs.map((e) => Row(children: [
+                    Text(e.key, style: Theme.of(context).textTheme.titleMedium),
+                    const SizedBox(width: 16),
+                    Text(e.value, style: Theme.of(context).textTheme.bodyMedium)
+                  ])),
+            ],
+          ))
+    ]);
+  }
+
+  Card buildNutritionInformationCard(BuildContext context) {
+    return cardElement([
+      ListTile(
+          title: Text(
+            "Nährwerte",
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+          subtitle: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Text("Energie",
+                      style: Theme.of(context).textTheme.titleMedium),
+                  const SizedBox(width: 16),
+                  Text(
+                      "${meal.nutritionInformation.kcal} kcal/${meal.nutritionInformation.kj} kJ",
+                      style: Theme.of(context).textTheme.bodyMedium),
+                ],
+              ),
+              Row(
+                children: [
+                  Text("Fett", style: Theme.of(context).textTheme.titleMedium),
+                  const SizedBox(width: 16),
+                  Text("${meal.nutritionInformation.fat} g",
+                      style: Theme.of(context).textTheme.bodyMedium),
+                ],
+              ),
+              Row(
+                children: [
+                  Text("davon gesättigte Fettsäuren",
+                      style: Theme.of(context).textTheme.titleMedium),
+                  const SizedBox(width: 16),
+                  Text("${meal.nutritionInformation.saturatedFat} g",
+                      style: Theme.of(context).textTheme.bodyMedium),
+                ],
+              ),
+              Row(
+                children: [
+                  Text("Kohlenhydrate",
+                      style: Theme.of(context).textTheme.titleMedium),
+                  const SizedBox(width: 16),
+                  Text("${meal.nutritionInformation.carbohydrates} g",
+                      style: Theme.of(context).textTheme.bodyMedium),
+                ],
+              ),
+              Row(
+                children: [
+                  Text("davon Zucker",
+                      style: Theme.of(context).textTheme.titleMedium),
+                  const SizedBox(width: 16),
+                  Text("${meal.nutritionInformation.sugar} g",
+                      style: Theme.of(context).textTheme.bodyMedium),
+                ],
+              ),
+              Row(
+                children: [
+                  Text("Eiweiß",
+                      style: Theme.of(context).textTheme.titleMedium),
+                  const SizedBox(width: 16),
+                  Text("${meal.nutritionInformation.protein} g",
+                      style: Theme.of(context).textTheme.bodyMedium),
+                ],
+              ),
+              Row(
+                children: [
+                  Text("Salz", style: Theme.of(context).textTheme.titleMedium),
+                  const SizedBox(width: 16),
+                  Text("${meal.nutritionInformation.salt} g",
+                      style: Theme.of(context).textTheme.bodyMedium),
+                ],
+              ),
+            ],
+          ))
+    ]);
   }
 }

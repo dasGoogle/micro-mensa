@@ -23,7 +23,7 @@ void main() {
     });
 
     // The numerical ID used to access the the data for the location at the API
-    // double id
+    // num id
     test('to test the property `id`', () async {
       // TODO
     });

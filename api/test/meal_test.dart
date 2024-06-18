@@ -23,13 +23,13 @@ void main() {
     });
 
     // The price of the meal for students
-    // double studentPrice
+    // num studentPrice
     test('to test the property `studentPrice`', () async {
       // TODO
     });
 
     // The price of the meal for guests
-    // double guestPrice
+    // num guestPrice
     test('to test the property `guestPrice`', () async {
       // TODO
     });
