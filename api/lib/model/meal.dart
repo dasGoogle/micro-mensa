@@ -29,10 +29,10 @@ class Meal {
   String name;
 
   /// The price of the meal for students
-  double studentPrice;
+  num studentPrice;
 
   /// The price of the meal for guests
-  double guestPrice;
+  num guestPrice;
 
   /// The when the meal is available
   DateTime date;
@@ -50,7 +50,7 @@ class Meal {
   bool isEveningMeal;
 
   /// The id of the meal
-  double id;
+  num id;
 
   NutritionInformation nutritionInformation;
 
@@ -124,14 +124,14 @@ class Meal {
 
       return Meal(
         name: mapValueOfType<String>(json, r'name')!,
-        studentPrice: mapValueOfType<double>(json, r'studentPrice')!,
-        guestPrice: mapValueOfType<double>(json, r'guestPrice')!,
+        studentPrice: mapValueOfType<num>(json, r'studentPrice')!,
+        guestPrice: mapValueOfType<num>(json, r'guestPrice')!,
         date: mapDateTime(json, r'date', r'')!,
         allergens: Allergen.listFromJson(json[r'allergens']),
         additives: Additive.listFromJson(json[r'additives']),
         features: Feature.listFromJson(json[r'features']),
         isEveningMeal: mapValueOfType<bool>(json, r'isEveningMeal')!,
-        id: mapValueOfType<double>(json, r'id')!,
+        id: mapValueOfType<num>(json, r'id')!,
         nutritionInformation:
             NutritionInformation.fromJson(json[r'nutritionInformation'])!,
       );

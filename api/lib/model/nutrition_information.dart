@@ -24,28 +24,28 @@ class NutritionInformation {
   });
 
   /// The energy of the meal in kJ
-  double kj;
+  num kj;
 
   /// The energy of the meal in kcal
-  double kcal;
+  num kcal;
 
   /// The fat of the meal in g
-  double fat;
+  num fat;
 
   /// The saturated fat of the meal in g
-  double saturatedFat;
+  num saturatedFat;
 
   /// The carbohydrates of the meal in g
-  double carbohydrates;
+  num carbohydrates;
 
   /// The sugar of the meal in g
-  double sugar;
+  num sugar;
 
   /// The protein of the meal in g
-  double protein;
+  num protein;
 
   /// The salt of the meal in g
-  double salt;
+  num salt;
 
   @override
   bool operator ==(Object other) =>
@@ -110,14 +110,14 @@ class NutritionInformation {
       }());
 
       return NutritionInformation(
-        kj: mapValueOfType<double>(json, r'kj')!,
-        kcal: mapValueOfType<double>(json, r'kcal')!,
-        fat: mapValueOfType<double>(json, r'fat')!,
-        saturatedFat: mapValueOfType<double>(json, r'saturatedFat')!,
-        carbohydrates: mapValueOfType<double>(json, r'carbohydrates')!,
-        sugar: mapValueOfType<double>(json, r'sugar')!,
-        protein: mapValueOfType<double>(json, r'protein')!,
-        salt: mapValueOfType<double>(json, r'salt')!,
+        kj: mapValueOfType<num>(json, r'kj')!,
+        kcal: mapValueOfType<num>(json, r'kcal')!,
+        fat: mapValueOfType<num>(json, r'fat')!,
+        saturatedFat: mapValueOfType<num>(json, r'saturatedFat')!,
+        carbohydrates: mapValueOfType<num>(json, r'carbohydrates')!,
+        sugar: mapValueOfType<num>(json, r'sugar')!,
+        protein: mapValueOfType<num>(json, r'protein')!,
+        salt: mapValueOfType<num>(json, r'salt')!,
       );
     }
     return null;

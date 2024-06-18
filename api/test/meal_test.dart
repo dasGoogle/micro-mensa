@@ -65,7 +65,7 @@ void main() {
     });
 
     // The id of the meal
-    // double id
+    // num id
     test('to test the property `id`', () async {
       // TODO
     });

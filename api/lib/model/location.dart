@@ -21,7 +21,7 @@ class Location {
   String name;
 
   /// The numerical ID used to access the the data for the location at the API
-  double id;
+  num id;
 
   @override
   bool operator ==(Object other) =>
@@ -65,7 +65,7 @@ class Location {
 
       return Location(
         name: mapValueOfType<String>(json, r'name')!,
-        id: mapValueOfType<double>(json, r'id')!,
+        id: mapValueOfType<num>(json, r'id')!,
       );
     }
     return null;

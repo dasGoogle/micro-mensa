@@ -17,49 +17,49 @@ void main() {
 
   group('test NutritionInformation', () {
     // The energy of the meal in kJ
-    // double kj
+    // num kj
     test('to test the property `kj`', () async {
       // TODO
     });
 
     // The energy of the meal in kcal
-    // double kcal
+    // num kcal
     test('to test the property `kcal`', () async {
       // TODO
     });
 
     // The fat of the meal in g
-    // double fat
+    // num fat
     test('to test the property `fat`', () async {
       // TODO
     });
 
     // The saturated fat of the meal in g
-    // double saturatedFat
+    // num saturatedFat
     test('to test the property `saturatedFat`', () async {
       // TODO
     });
 
     // The carbohydrates of the meal in g
-    // double carbohydrates
+    // num carbohydrates
     test('to test the property `carbohydrates`', () async {
       // TODO
     });
 
     // The sugar of the meal in g
-    // double sugar
+    // num sugar
     test('to test the property `sugar`', () async {
       // TODO
     });
 
     // The protein of the meal in g
-    // double protein
+    // num protein
     test('to test the property `protein`', () async {
       // TODO
     });
 
     // The salt of the meal in g
-    // double salt
+    // num salt
     test('to test the property `salt`', () async {
       // TODO
     });

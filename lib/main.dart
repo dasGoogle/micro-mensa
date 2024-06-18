@@ -1,8 +1,10 @@
 import 'package:card_loading/card_loading.dart';
 import 'package:dynamic_color/dynamic_color.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mensa_api/api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:weekly_date_picker/weekly_date_picker.dart';
 
 import 'location_select_screen.dart';
@@ -88,6 +90,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
     String date = _selectedDay.toIso8601String().split("T")[0];
     var meals = await apiInstance.getMeals(_location, date: date, lang: "de");
+    if (meals != null) {
+      meals.sort((a, b) => a.isEveningMeal ? 1 : -1);
+    }
     setState(() {
       _meals = meals!;
       _loading = false;
@@ -141,7 +146,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 _location,
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
-            )
+            ),
+            if (kIsWeb)
+              InkWell(
+                  child: const Text('Open API Docs'),
+                  onTap: () => launchUrl(
+                      Uri.parse('https://mensa.aaronschlitt.de/docs/'))),
           ])),
       body: SingleChildScrollView(
         child: Column(
