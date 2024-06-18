@@ -1,9 +1,12 @@
+// Openapi Generator last run: : 2024-06-18T09:19:52.189829
 import 'package:openapi_generator_annotations/openapi_generator_annotations.dart';
 
 @Openapi(
     additionalProperties:
-    AdditionalProperties(pubName: 'mensa_api', pubAuthor: 'Aaron Schlitt'),
-    inputSpecFile: './swagger.json',
+        AdditionalProperties(pubName: 'mensa_api', pubAuthor: 'Aaron Schlitt'),
+    inputSpec: RemoteSpec(path: 'https://mensa.aaronschlitt.de/openapi.json'),
     generatorName: Generator.dart,
+    typeMappings: {'int': 'num', 'double': 'num'},
+    skipSpecValidation: true,
     outputDirectory: 'api')
-class OpenAPI extends OpenapiGeneratorConfig {}
+class OpenAPI {}

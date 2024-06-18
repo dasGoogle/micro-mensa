@@ -11,7 +11,6 @@
 import 'package:mensa_api/api.dart';
 import 'package:test/test.dart';
 
-
 /// tests for DefaultApi
 void main() {
   // final instance = DefaultApi();
@@ -51,6 +50,5 @@ void main() {
     test('test getMeals', () async {
       // TODO
     });
-
   });
 }

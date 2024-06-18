@@ -1,0 +1,11 @@
+.github
+.idea
+.vscode
+android
+build
+ios
+linux
+macos
+test
+windows
+swagger.json

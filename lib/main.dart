@@ -80,7 +80,6 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void loadMeals() async {
-
     if (_loading) return;
     setState(() {
       _loading = true;
@@ -116,9 +115,12 @@ class _MyHomePageState extends State<MyHomePage> {
   void selectLocation() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => LocationScreen(apiClient: apiInstance,)),
+      MaterialPageRoute(
+          builder: (context) => LocationScreen(
+                apiClient: apiInstance,
+              )),
     ).then((value) {
-      if(value != null) {
+      if (value != null) {
         setLocation(value.name);
       }
     });
@@ -162,16 +164,15 @@ class _MyHomePageState extends State<MyHomePage> {
 
   WeeklyDatePicker buildDatePicker(BuildContext context) {
     return WeeklyDatePicker(
-          selectedDay: _selectedDay,
-          changeDay: selectDay,
-          enableWeeknumberText: false,
-          backgroundColor: Colors.transparent,
-          weekdayTextColor: Theme.of(context).disabledColor,
-          digitsColor: Theme.of(context).colorScheme.onSurface,
-          selectedBackgroundColor: Theme.of(context).colorScheme.primary,
-          selectedDigitColor: Theme.of(context).colorScheme.onPrimary,
-
-        );
+      selectedDay: _selectedDay,
+      changeDay: selectDay,
+      enableWeeknumberText: false,
+      backgroundColor: Colors.transparent,
+      weekdayTextColor: Theme.of(context).disabledColor,
+      digitsColor: Theme.of(context).colorScheme.onSurface,
+      selectedDigitBackgroundColor: Theme.of(context).colorScheme.primary,
+      selectedDigitColor: Theme.of(context).colorScheme.onPrimary,
+    );
   }
 
   List<Widget> loadingIndicator(int count) {
@@ -192,7 +193,8 @@ class _MyHomePageState extends State<MyHomePage> {
     return Center(
       child: Column(
         children: [
-          Icon(Icons.no_food_outlined, size: Theme.of(context).textTheme.displayLarge?.fontSize ?? 40),
+          Icon(Icons.no_food_outlined,
+              size: Theme.of(context).textTheme.displayLarge?.fontSize ?? 40),
           Text("Kein Speiseplan für den gewählten Tag gefunden.",
               style: Theme.of(context).textTheme.bodyLarge),
         ],
@@ -204,24 +206,33 @@ class _MyHomePageState extends State<MyHomePage> {
     String features = meal.features.map((e) => e.abbreviation).join(", ");
     String allergens = meal.allergens.map((e) => e.abbreviation).join(", ");
     String additives = meal.additives.map((e) => e.abbreviation).join(", ");
-    String info = "$features${allergens.isNotEmpty ? " • $allergens" : ""}${additives.isNotEmpty ? " • $additives" : ""}";
+    String info =
+        "$features${allergens.isNotEmpty ? " • $allergens" : ""}${additives.isNotEmpty ? " • $additives" : ""}";
     var card = Card(
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           ListTile(
-            title: Text(meal.name, style: Theme.of(context).textTheme.titleMedium),
+            title:
+                Text(meal.name, style: Theme.of(context).textTheme.titleMedium),
             leading:
                 Icon(meal.isEveningMeal ? Icons.dark_mode : Icons.light_mode),
             subtitle: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Text("${meal.studentPrice.toStringAsFixed(2)}€",
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Theme.of(context).colorScheme.primary)),
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        color: Theme.of(context).colorScheme.primary)),
                 const SizedBox(width: 2),
-                Text("${meal.guestPrice.toStringAsFixed(2)}€", style: Theme.of(context).textTheme.bodyLarge),
+                Text("${meal.guestPrice.toStringAsFixed(2)}€",
+                    style: Theme.of(context).textTheme.bodyLarge),
                 const SizedBox(width: 8),
-                Flexible(child: Text(info, style: Theme.of(context).textTheme.bodyLarge, overflow: TextOverflow.fade, softWrap: false),),
+                Flexible(
+                  child: Text(info,
+                      style: Theme.of(context).textTheme.bodyLarge,
+                      overflow: TextOverflow.fade,
+                      softWrap: false),
+                ),
               ],
             ),
           ),

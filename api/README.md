@@ -55,7 +55,7 @@ try {
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *https://mensa.aaronschlitt.de*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
@@ -73,6 +73,7 @@ Class | Method | HTTP request | Description
  - [Feature](doc//Feature.md)
  - [Location](doc//Location.md)
  - [Meal](doc//Meal.md)
+ - [NutritionInformation](doc//NutritionInformation.md)
 
 
 ## Documentation For Authorization

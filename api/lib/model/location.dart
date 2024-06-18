@@ -21,26 +21,25 @@ class Location {
   String name;
 
   /// The numerical ID used to access the the data for the location at the API
-  num id;
+  double id;
 
   @override
-  bool operator ==(Object other) => identical(this, other) || other is Location &&
-     other.name == name &&
-     other.id == id;
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Location && other.name == name && other.id == id;
 
   @override
   int get hashCode =>
-    // ignore: unnecessary_parenthesis
-    (name.hashCode) +
-    (id.hashCode);
+      // ignore: unnecessary_parenthesis
+      (name.hashCode) + (id.hashCode);
 
   @override
   String toString() => 'Location[name=$name, id=$id]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
-      json[r'name'] = this.name;
-      json[r'id'] = this.id;
+    json[r'name'] = this.name;
+    json[r'id'] = this.id;
     return json;
   }
 
@@ -56,21 +55,26 @@ class Location {
       // Note 2: this code is stripped in release mode!
       assert(() {
         requiredKeys.forEach((key) {
-          assert(json.containsKey(key), 'Required key "Location[$key]" is missing from JSON.');
-          assert(json[key] != null, 'Required key "Location[$key]" has a null value in JSON.');
+          assert(json.containsKey(key),
+              'Required key "Location[$key]" is missing from JSON.');
+          assert(json[key] != null,
+              'Required key "Location[$key]" has a null value in JSON.');
         });
         return true;
       }());
 
       return Location(
         name: mapValueOfType<String>(json, r'name')!,
-        id: mapValueOfType<num>(json, r'id')!,
+        id: mapValueOfType<double>(json, r'id')!,
       );
     }
     return null;
   }
 
-  static List<Location> listFromJson(dynamic json, {bool growable = false,}) {
+  static List<Location> listFromJson(
+    dynamic json, {
+    bool growable = false,
+  }) {
     final result = <Location>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
@@ -98,13 +102,19 @@ class Location {
   }
 
   // maps a json object with a list of Location-objects as value to a dart map
-  static Map<String, List<Location>> mapListFromJson(dynamic json, {bool growable = false,}) {
+  static Map<String, List<Location>> mapListFromJson(
+    dynamic json, {
+    bool growable = false,
+  }) {
     final map = <String, List<Location>>{};
     if (json is Map && json.isNotEmpty) {
       // ignore: parameter_assignments
       json = json.cast<String, dynamic>();
       for (final entry in json.entries) {
-        map[entry.key] = Location.listFromJson(entry.value, growable: growable,);
+        map[entry.key] = Location.listFromJson(
+          entry.value,
+          growable: growable,
+        );
       }
     }
     return map;
@@ -116,4 +126,3 @@ class Location {
     'id',
   };
 }
-

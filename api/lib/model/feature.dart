@@ -24,23 +24,24 @@ class Feature {
   String abbreviation;
 
   @override
-  bool operator ==(Object other) => identical(this, other) || other is Feature &&
-     other.name == name &&
-     other.abbreviation == abbreviation;
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Feature &&
+          other.name == name &&
+          other.abbreviation == abbreviation;
 
   @override
   int get hashCode =>
-    // ignore: unnecessary_parenthesis
-    (name.hashCode) +
-    (abbreviation.hashCode);
+      // ignore: unnecessary_parenthesis
+      (name.hashCode) + (abbreviation.hashCode);
 
   @override
   String toString() => 'Feature[name=$name, abbreviation=$abbreviation]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
-      json[r'name'] = this.name;
-      json[r'abbreviation'] = this.abbreviation;
+    json[r'name'] = this.name;
+    json[r'abbreviation'] = this.abbreviation;
     return json;
   }
 
@@ -56,8 +57,10 @@ class Feature {
       // Note 2: this code is stripped in release mode!
       assert(() {
         requiredKeys.forEach((key) {
-          assert(json.containsKey(key), 'Required key "Feature[$key]" is missing from JSON.');
-          assert(json[key] != null, 'Required key "Feature[$key]" has a null value in JSON.');
+          assert(json.containsKey(key),
+              'Required key "Feature[$key]" is missing from JSON.');
+          assert(json[key] != null,
+              'Required key "Feature[$key]" has a null value in JSON.');
         });
         return true;
       }());
@@ -70,7 +73,10 @@ class Feature {
     return null;
   }
 
-  static List<Feature> listFromJson(dynamic json, {bool growable = false,}) {
+  static List<Feature> listFromJson(
+    dynamic json, {
+    bool growable = false,
+  }) {
     final result = <Feature>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
@@ -98,13 +104,19 @@ class Feature {
   }
 
   // maps a json object with a list of Feature-objects as value to a dart map
-  static Map<String, List<Feature>> mapListFromJson(dynamic json, {bool growable = false,}) {
+  static Map<String, List<Feature>> mapListFromJson(
+    dynamic json, {
+    bool growable = false,
+  }) {
     final map = <String, List<Feature>>{};
     if (json is Map && json.isNotEmpty) {
       // ignore: parameter_assignments
       json = json.cast<String, dynamic>();
       for (final entry in json.entries) {
-        map[entry.key] = Feature.listFromJson(entry.value, growable: growable,);
+        map[entry.key] = Feature.listFromJson(
+          entry.value,
+          growable: growable,
+        );
       }
     }
     return map;
@@ -116,4 +128,3 @@ class Feature {
     'abbreviation',
   };
 }
-

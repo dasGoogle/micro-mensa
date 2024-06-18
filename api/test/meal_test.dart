@@ -64,7 +64,15 @@ void main() {
       // TODO
     });
 
+    // The id of the meal
+    // double id
+    test('to test the property `id`', () async {
+      // TODO
+    });
 
+    // NutritionInformation nutritionInformation
+    test('to test the property `nutritionInformation`', () async {
+      // TODO
+    });
   });
-
 }

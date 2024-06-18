@@ -16,6 +16,8 @@ Name | Type | Description | Notes
 **additives** | [**List<Additive>**](Additive.md) | The additives of the meal | [default to const []]
 **features** | [**List<Feature>**](Feature.md) | The features of the meal | [default to const []]
 **isEveningMeal** | **bool** | Whether the meal is an evening meal | 
+**id** | **double** | The id of the meal | 
+**nutritionInformation** | [**NutritionInformation**](NutritionInformation.md) |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
