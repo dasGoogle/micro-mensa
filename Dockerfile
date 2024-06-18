@@ -8,10 +8,10 @@ RUN apt-get update && apt-get install -y curl git unzip xz-utils zip libglu1-mes
 ENV FLUTTER_HOME=/usr/local/flutter
 ENV PATH=$FLUTTER_HOME/bin:$FLUTTER_HOME/bin/cache/dart-sdk/bin:$PATH
 
-RUN useradd -ms /bin/bash ubuntu
-RUN chown -R ubuntu:ubuntu /usr/local/
+RUN useradd -ms /bin/bash builder
+RUN chown -R builder:builder /usr/local/
 
-USER ubuntu
+USER builder
 # Download and install Flutter SDK
 RUN git clone https://github.com/flutter/flutter.git $FLUTTER_HOME
 RUN flutter doctor
@@ -21,8 +21,8 @@ COPY . /app
 WORKDIR /app
 
 USER root
-RUN chown -R ubuntu:ubuntu /app
-USER ubuntu
+RUN chown -R builder:builder /app
+USER builder
 
 # Install dependencies
 RUN flutter pub get
