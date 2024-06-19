@@ -5,7 +5,7 @@
 import 'package:mensa_api/api.dart';
 ```
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *https://mensa.aaronschlitt.de*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------

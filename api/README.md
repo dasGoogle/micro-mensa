@@ -55,7 +55,7 @@ try {
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *https://mensa.aaronschlitt.de*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------

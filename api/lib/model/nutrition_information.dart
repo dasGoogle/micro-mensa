@@ -48,41 +48,44 @@ class NutritionInformation {
   num salt;
 
   @override
-  bool operator ==(Object other) => identical(this, other) || other is NutritionInformation &&
-     other.kj == kj &&
-     other.kcal == kcal &&
-     other.fat == fat &&
-     other.saturatedFat == saturatedFat &&
-     other.carbohydrates == carbohydrates &&
-     other.sugar == sugar &&
-     other.protein == protein &&
-     other.salt == salt;
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is NutritionInformation &&
+          other.kj == kj &&
+          other.kcal == kcal &&
+          other.fat == fat &&
+          other.saturatedFat == saturatedFat &&
+          other.carbohydrates == carbohydrates &&
+          other.sugar == sugar &&
+          other.protein == protein &&
+          other.salt == salt;
 
   @override
   int get hashCode =>
-    // ignore: unnecessary_parenthesis
-    (kj.hashCode) +
-    (kcal.hashCode) +
-    (fat.hashCode) +
-    (saturatedFat.hashCode) +
-    (carbohydrates.hashCode) +
-    (sugar.hashCode) +
-    (protein.hashCode) +
-    (salt.hashCode);
+      // ignore: unnecessary_parenthesis
+      (kj.hashCode) +
+      (kcal.hashCode) +
+      (fat.hashCode) +
+      (saturatedFat.hashCode) +
+      (carbohydrates.hashCode) +
+      (sugar.hashCode) +
+      (protein.hashCode) +
+      (salt.hashCode);
 
   @override
-  String toString() => 'NutritionInformation[kj=$kj, kcal=$kcal, fat=$fat, saturatedFat=$saturatedFat, carbohydrates=$carbohydrates, sugar=$sugar, protein=$protein, salt=$salt]';
+  String toString() =>
+      'NutritionInformation[kj=$kj, kcal=$kcal, fat=$fat, saturatedFat=$saturatedFat, carbohydrates=$carbohydrates, sugar=$sugar, protein=$protein, salt=$salt]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
-      json[r'kj'] = this.kj;
-      json[r'kcal'] = this.kcal;
-      json[r'fat'] = this.fat;
-      json[r'saturatedFat'] = this.saturatedFat;
-      json[r'carbohydrates'] = this.carbohydrates;
-      json[r'sugar'] = this.sugar;
-      json[r'protein'] = this.protein;
-      json[r'salt'] = this.salt;
+    json[r'kj'] = this.kj;
+    json[r'kcal'] = this.kcal;
+    json[r'fat'] = this.fat;
+    json[r'saturatedFat'] = this.saturatedFat;
+    json[r'carbohydrates'] = this.carbohydrates;
+    json[r'sugar'] = this.sugar;
+    json[r'protein'] = this.protein;
+    json[r'salt'] = this.salt;
     return json;
   }
 
@@ -98,8 +101,10 @@ class NutritionInformation {
       // Note 2: this code is stripped in release mode!
       assert(() {
         requiredKeys.forEach((key) {
-          assert(json.containsKey(key), 'Required key "NutritionInformation[$key]" is missing from JSON.');
-          assert(json[key] != null, 'Required key "NutritionInformation[$key]" has a null value in JSON.');
+          assert(json.containsKey(key),
+              'Required key "NutritionInformation[$key]" is missing from JSON.');
+          assert(json[key] != null,
+              'Required key "NutritionInformation[$key]" has a null value in JSON.');
         });
         return true;
       }());
@@ -118,7 +123,10 @@ class NutritionInformation {
     return null;
   }
 
-  static List<NutritionInformation> listFromJson(dynamic json, {bool growable = false,}) {
+  static List<NutritionInformation> listFromJson(
+    dynamic json, {
+    bool growable = false,
+  }) {
     final result = <NutritionInformation>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
@@ -146,13 +154,19 @@ class NutritionInformation {
   }
 
   // maps a json object with a list of NutritionInformation-objects as value to a dart map
-  static Map<String, List<NutritionInformation>> mapListFromJson(dynamic json, {bool growable = false,}) {
+  static Map<String, List<NutritionInformation>> mapListFromJson(
+    dynamic json, {
+    bool growable = false,
+  }) {
     final map = <String, List<NutritionInformation>>{};
     if (json is Map && json.isNotEmpty) {
       // ignore: parameter_assignments
       json = json.cast<String, dynamic>();
       for (final entry in json.entries) {
-        map[entry.key] = NutritionInformation.listFromJson(entry.value, growable: growable,);
+        map[entry.key] = NutritionInformation.listFromJson(
+          entry.value,
+          growable: growable,
+        );
       }
     }
     return map;
@@ -170,4 +184,3 @@ class NutritionInformation {
     'salt',
   };
 }
-

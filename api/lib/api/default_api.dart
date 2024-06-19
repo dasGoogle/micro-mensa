@@ -10,9 +10,9 @@
 
 part of openapi.api;
 
-
 class DefaultApi {
-  DefaultApi([ApiClient? apiClient]) : apiClient = apiClient ?? defaultApiClient;
+  DefaultApi([ApiClient? apiClient])
+      : apiClient = apiClient ?? defaultApiClient;
 
   final ApiClient apiClient;
 
@@ -27,10 +27,12 @@ class DefaultApi {
   ///
   /// * [String] lang:
   ///   The language in which to return the additives. Currently supported: en, de
-  Future<Response> getAdditivesWithHttpInfo(String location, { String? lang, }) async {
+  Future<Response> getAdditivesWithHttpInfo(
+    String location, {
+    String? lang,
+  }) async {
     // ignore: prefer_const_declarations
-    final path = r'/additives/{location}'
-      .replaceAll('{location}', location);
+    final path = r'/additives/{location}'.replaceAll('{location}', location);
 
     // ignore: prefer_final_locals
     Object? postBody;
@@ -44,7 +46,6 @@ class DefaultApi {
     }
 
     const contentTypes = <String>[];
-
 
     return apiClient.invokeAPI(
       path,
@@ -66,20 +67,27 @@ class DefaultApi {
   ///
   /// * [String] lang:
   ///   The language in which to return the additives. Currently supported: en, de
-  Future<List<Additive>?> getAdditives(String location, { String? lang, }) async {
-    final response = await getAdditivesWithHttpInfo(location,  lang: lang, );
+  Future<List<Additive>?> getAdditives(
+    String location, {
+    String? lang,
+  }) async {
+    final response = await getAdditivesWithHttpInfo(
+      location,
+      lang: lang,
+    );
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
     // When a remote server returns no body with a status of 204, we shall not decode it.
     // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
     // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+    if (response.body.isNotEmpty &&
+        response.statusCode != HttpStatus.noContent) {
       final responseBody = await _decodeBodyBytes(response);
-      return (await apiClient.deserializeAsync(responseBody, 'List<Additive>') as List)
-        .cast<Additive>()
-        .toList();
-
+      return (await apiClient.deserializeAsync(responseBody, 'List<Additive>')
+              as List)
+          .cast<Additive>()
+          .toList(growable: false);
     }
     return null;
   }
@@ -95,10 +103,12 @@ class DefaultApi {
   ///
   /// * [String] lang:
   ///   The language in which to return the allergens. Currently supported: en, de
-  Future<Response> getAllergensWithHttpInfo(String location, { String? lang, }) async {
+  Future<Response> getAllergensWithHttpInfo(
+    String location, {
+    String? lang,
+  }) async {
     // ignore: prefer_const_declarations
-    final path = r'/allergens/{location}'
-      .replaceAll('{location}', location);
+    final path = r'/allergens/{location}'.replaceAll('{location}', location);
 
     // ignore: prefer_final_locals
     Object? postBody;
@@ -112,7 +122,6 @@ class DefaultApi {
     }
 
     const contentTypes = <String>[];
-
 
     return apiClient.invokeAPI(
       path,
@@ -134,20 +143,27 @@ class DefaultApi {
   ///
   /// * [String] lang:
   ///   The language in which to return the allergens. Currently supported: en, de
-  Future<List<Allergen>?> getAllergens(String location, { String? lang, }) async {
-    final response = await getAllergensWithHttpInfo(location,  lang: lang, );
+  Future<List<Allergen>?> getAllergens(
+    String location, {
+    String? lang,
+  }) async {
+    final response = await getAllergensWithHttpInfo(
+      location,
+      lang: lang,
+    );
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
     // When a remote server returns no body with a status of 204, we shall not decode it.
     // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
     // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+    if (response.body.isNotEmpty &&
+        response.statusCode != HttpStatus.noContent) {
       final responseBody = await _decodeBodyBytes(response);
-      return (await apiClient.deserializeAsync(responseBody, 'List<Allergen>') as List)
-        .cast<Allergen>()
-        .toList();
-
+      return (await apiClient.deserializeAsync(responseBody, 'List<Allergen>')
+              as List)
+          .cast<Allergen>()
+          .toList(growable: false);
     }
     return null;
   }
@@ -163,10 +179,12 @@ class DefaultApi {
   ///
   /// * [String] lang:
   ///   The language in which to return the meals. Currently supported: en, de
-  Future<Response> getFeaturesWithHttpInfo(String location, { String? lang, }) async {
+  Future<Response> getFeaturesWithHttpInfo(
+    String location, {
+    String? lang,
+  }) async {
     // ignore: prefer_const_declarations
-    final path = r'/features/{location}'
-      .replaceAll('{location}', location);
+    final path = r'/features/{location}'.replaceAll('{location}', location);
 
     // ignore: prefer_final_locals
     Object? postBody;
@@ -180,7 +198,6 @@ class DefaultApi {
     }
 
     const contentTypes = <String>[];
-
 
     return apiClient.invokeAPI(
       path,
@@ -202,20 +219,27 @@ class DefaultApi {
   ///
   /// * [String] lang:
   ///   The language in which to return the meals. Currently supported: en, de
-  Future<List<Feature>?> getFeatures(String location, { String? lang, }) async {
-    final response = await getFeaturesWithHttpInfo(location,  lang: lang, );
+  Future<List<Feature>?> getFeatures(
+    String location, {
+    String? lang,
+  }) async {
+    final response = await getFeaturesWithHttpInfo(
+      location,
+      lang: lang,
+    );
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
     // When a remote server returns no body with a status of 204, we shall not decode it.
     // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
     // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+    if (response.body.isNotEmpty &&
+        response.statusCode != HttpStatus.noContent) {
       final responseBody = await _decodeBodyBytes(response);
-      return (await apiClient.deserializeAsync(responseBody, 'List<Feature>') as List)
-        .cast<Feature>()
-        .toList();
-
+      return (await apiClient.deserializeAsync(responseBody, 'List<Feature>')
+              as List)
+          .cast<Feature>()
+          .toList(growable: false);
     }
     return null;
   }
@@ -235,7 +259,6 @@ class DefaultApi {
     final formParams = <String, String>{};
 
     const contentTypes = <String>[];
-
 
     return apiClient.invokeAPI(
       path,
@@ -257,12 +280,13 @@ class DefaultApi {
     // When a remote server returns no body with a status of 204, we shall not decode it.
     // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
     // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+    if (response.body.isNotEmpty &&
+        response.statusCode != HttpStatus.noContent) {
       final responseBody = await _decodeBodyBytes(response);
-      return (await apiClient.deserializeAsync(responseBody, 'List<Location>') as List)
-        .cast<Location>()
-        .toList();
-
+      return (await apiClient.deserializeAsync(responseBody, 'List<Location>')
+              as List)
+          .cast<Location>()
+          .toList(growable: false);
     }
     return null;
   }
@@ -284,10 +308,14 @@ class DefaultApi {
   ///
   /// * [String] lang:
   ///   The language in which to return the meals. Currently supported: en, de
-  Future<Response> getMealsWithHttpInfo(String location, { String? date, bool? evening, String? lang, }) async {
+  Future<Response> getMealsWithHttpInfo(
+    String location, {
+    String? date,
+    bool? evening,
+    String? lang,
+  }) async {
     // ignore: prefer_const_declarations
-    final path = r'/meals/{location}'
-      .replaceAll('{location}', location);
+    final path = r'/meals/{location}'.replaceAll('{location}', location);
 
     // ignore: prefer_final_locals
     Object? postBody;
@@ -307,7 +335,6 @@ class DefaultApi {
     }
 
     const contentTypes = <String>[];
-
 
     return apiClient.invokeAPI(
       path,
@@ -335,20 +362,31 @@ class DefaultApi {
   ///
   /// * [String] lang:
   ///   The language in which to return the meals. Currently supported: en, de
-  Future<List<Meal>?> getMeals(String location, { String? date, bool? evening, String? lang, }) async {
-    final response = await getMealsWithHttpInfo(location,  date: date, evening: evening, lang: lang, );
+  Future<List<Meal>?> getMeals(
+    String location, {
+    String? date,
+    bool? evening,
+    String? lang,
+  }) async {
+    final response = await getMealsWithHttpInfo(
+      location,
+      date: date,
+      evening: evening,
+      lang: lang,
+    );
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
     // When a remote server returns no body with a status of 204, we shall not decode it.
     // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
     // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+    if (response.body.isNotEmpty &&
+        response.statusCode != HttpStatus.noContent) {
       final responseBody = await _decodeBodyBytes(response);
-      return (await apiClient.deserializeAsync(responseBody, 'List<Meal>') as List)
-        .cast<Meal>()
-        .toList();
-
+      return (await apiClient.deserializeAsync(responseBody, 'List<Meal>')
+              as List)
+          .cast<Meal>()
+          .toList(growable: false);
     }
     return null;
   }

@@ -55,47 +55,50 @@ class Meal {
   NutritionInformation nutritionInformation;
 
   @override
-  bool operator ==(Object other) => identical(this, other) || other is Meal &&
-     other.name == name &&
-     other.studentPrice == studentPrice &&
-     other.guestPrice == guestPrice &&
-     other.date == date &&
-     other.allergens == allergens &&
-     other.additives == additives &&
-     other.features == features &&
-     other.isEveningMeal == isEveningMeal &&
-     other.id == id &&
-     other.nutritionInformation == nutritionInformation;
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Meal &&
+          other.name == name &&
+          other.studentPrice == studentPrice &&
+          other.guestPrice == guestPrice &&
+          other.date == date &&
+          _deepEquality.equals(other.allergens, allergens) &&
+          _deepEquality.equals(other.additives, additives) &&
+          _deepEquality.equals(other.features, features) &&
+          other.isEveningMeal == isEveningMeal &&
+          other.id == id &&
+          other.nutritionInformation == nutritionInformation;
 
   @override
   int get hashCode =>
-    // ignore: unnecessary_parenthesis
-    (name.hashCode) +
-    (studentPrice.hashCode) +
-    (guestPrice.hashCode) +
-    (date.hashCode) +
-    (allergens.hashCode) +
-    (additives.hashCode) +
-    (features.hashCode) +
-    (isEveningMeal.hashCode) +
-    (id.hashCode) +
-    (nutritionInformation.hashCode);
+      // ignore: unnecessary_parenthesis
+      (name.hashCode) +
+      (studentPrice.hashCode) +
+      (guestPrice.hashCode) +
+      (date.hashCode) +
+      (allergens.hashCode) +
+      (additives.hashCode) +
+      (features.hashCode) +
+      (isEveningMeal.hashCode) +
+      (id.hashCode) +
+      (nutritionInformation.hashCode);
 
   @override
-  String toString() => 'Meal[name=$name, studentPrice=$studentPrice, guestPrice=$guestPrice, date=$date, allergens=$allergens, additives=$additives, features=$features, isEveningMeal=$isEveningMeal, id=$id, nutritionInformation=$nutritionInformation]';
+  String toString() =>
+      'Meal[name=$name, studentPrice=$studentPrice, guestPrice=$guestPrice, date=$date, allergens=$allergens, additives=$additives, features=$features, isEveningMeal=$isEveningMeal, id=$id, nutritionInformation=$nutritionInformation]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
-      json[r'name'] = this.name;
-      json[r'studentPrice'] = this.studentPrice;
-      json[r'guestPrice'] = this.guestPrice;
-      json[r'date'] = this.date.toUtc().toIso8601String();
-      json[r'allergens'] = this.allergens;
-      json[r'additives'] = this.additives;
-      json[r'features'] = this.features;
-      json[r'isEveningMeal'] = this.isEveningMeal;
-      json[r'id'] = this.id;
-      json[r'nutritionInformation'] = this.nutritionInformation;
+    json[r'name'] = this.name;
+    json[r'studentPrice'] = this.studentPrice;
+    json[r'guestPrice'] = this.guestPrice;
+    json[r'date'] = this.date.toUtc().toIso8601String();
+    json[r'allergens'] = this.allergens;
+    json[r'additives'] = this.additives;
+    json[r'features'] = this.features;
+    json[r'isEveningMeal'] = this.isEveningMeal;
+    json[r'id'] = this.id;
+    json[r'nutritionInformation'] = this.nutritionInformation;
     return json;
   }
 
@@ -111,8 +114,10 @@ class Meal {
       // Note 2: this code is stripped in release mode!
       assert(() {
         requiredKeys.forEach((key) {
-          assert(json.containsKey(key), 'Required key "Meal[$key]" is missing from JSON.');
-          assert(json[key] != null, 'Required key "Meal[$key]" has a null value in JSON.');
+          assert(json.containsKey(key),
+              'Required key "Meal[$key]" is missing from JSON.');
+          assert(json[key] != null,
+              'Required key "Meal[$key]" has a null value in JSON.');
         });
         return true;
       }());
@@ -121,19 +126,23 @@ class Meal {
         name: mapValueOfType<String>(json, r'name')!,
         studentPrice: mapValueOfType<num>(json, r'studentPrice')!,
         guestPrice: mapValueOfType<num>(json, r'guestPrice')!,
-        date: mapDateTime(json, r'date', '')!,
+        date: mapDateTime(json, r'date', r'')!,
         allergens: Allergen.listFromJson(json[r'allergens']),
         additives: Additive.listFromJson(json[r'additives']),
         features: Feature.listFromJson(json[r'features']),
         isEveningMeal: mapValueOfType<bool>(json, r'isEveningMeal')!,
         id: mapValueOfType<num>(json, r'id')!,
-        nutritionInformation: NutritionInformation.fromJson(json[r'nutritionInformation'])!,
+        nutritionInformation:
+            NutritionInformation.fromJson(json[r'nutritionInformation'])!,
       );
     }
     return null;
   }
 
-  static List<Meal> listFromJson(dynamic json, {bool growable = false,}) {
+  static List<Meal> listFromJson(
+    dynamic json, {
+    bool growable = false,
+  }) {
     final result = <Meal>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
@@ -161,13 +170,19 @@ class Meal {
   }
 
   // maps a json object with a list of Meal-objects as value to a dart map
-  static Map<String, List<Meal>> mapListFromJson(dynamic json, {bool growable = false,}) {
+  static Map<String, List<Meal>> mapListFromJson(
+    dynamic json, {
+    bool growable = false,
+  }) {
     final map = <String, List<Meal>>{};
     if (json is Map && json.isNotEmpty) {
       // ignore: parameter_assignments
       json = json.cast<String, dynamic>();
       for (final entry in json.entries) {
-        map[entry.key] = Meal.listFromJson(entry.value, growable: growable,);
+        map[entry.key] = Meal.listFromJson(
+          entry.value,
+          growable: growable,
+        );
       }
     }
     return map;
@@ -187,4 +202,3 @@ class Meal {
     'nutritionInformation',
   };
 }
-

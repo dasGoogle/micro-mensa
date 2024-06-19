@@ -1,8 +1,10 @@
 import 'package:card_loading/card_loading.dart';
 import 'package:dynamic_color/dynamic_color.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mensa_api/api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:weekly_date_picker/weekly_date_picker.dart';
 
 import 'location_select_screen.dart';
@@ -23,7 +25,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return DynamicColorBuilder(builder: (lightColorScheme, darkColorScheme) {
       return MaterialApp(
-        title: 'Flutter Demo',
+        title: 'micro-Mensa',
         theme: ThemeData(
           colorScheme: lightColorScheme ?? _defaultLightColorScheme,
           useMaterial3: true,
@@ -33,7 +35,7 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
         themeMode: ThemeMode.system,
-        home: const MyHomePage(title: 'µMensa'),
+        home: const MyHomePage(title: 'micro-Mensa'),
       );
     });
   }
@@ -42,7 +44,7 @@ class MyApp extends StatelessWidget {
       ColorScheme.fromSwatch(primarySwatch: Colors.red);
 
   static final _defaultDarkColorScheme = ColorScheme.fromSwatch(
-      primarySwatch: Colors.green, brightness: Brightness.dark);
+      primarySwatch: Colors.red, brightness: Brightness.light);
 }
 
 class MyHomePage extends StatefulWidget {
@@ -80,7 +82,6 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void loadMeals() async {
-
     if (_loading) return;
     setState(() {
       _loading = true;
@@ -89,6 +90,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
     String date = _selectedDay.toIso8601String().split("T")[0];
     var meals = await apiInstance.getMeals(_location, date: date, lang: "de");
+    if (meals != null) {
+      meals.sort((a, b) => a.isEveningMeal ? 1 : -1);
+    }
     setState(() {
       _meals = meals!;
       _loading = false;
@@ -116,9 +120,12 @@ class _MyHomePageState extends State<MyHomePage> {
   void selectLocation() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => LocationScreen(apiClient: apiInstance,)),
+      MaterialPageRoute(
+          builder: (context) => LocationScreen(
+                apiClient: apiInstance,
+              )),
     ).then((value) {
-      if(value != null) {
+      if (value != null) {
         setLocation(value.name);
       }
     });
@@ -139,7 +146,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 _location,
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
-            )
+            ),
+            if (kIsWeb)
+              InkWell(
+                  child: const Text('Open API Docs'),
+                  onTap: () => launchUrl(
+                      Uri.parse('https://mensa.aaronschlitt.de/docs/'))),
           ])),
       body: SingleChildScrollView(
         child: Column(
@@ -162,16 +174,15 @@ class _MyHomePageState extends State<MyHomePage> {
 
   WeeklyDatePicker buildDatePicker(BuildContext context) {
     return WeeklyDatePicker(
-          selectedDay: _selectedDay,
-          changeDay: selectDay,
-          enableWeeknumberText: false,
-          backgroundColor: Colors.transparent,
-          weekdayTextColor: Theme.of(context).disabledColor,
-          digitsColor: Theme.of(context).colorScheme.onSurface,
-          selectedBackgroundColor: Theme.of(context).colorScheme.primary,
-          selectedDigitColor: Theme.of(context).colorScheme.onPrimary,
-
-        );
+      selectedDay: _selectedDay,
+      changeDay: selectDay,
+      enableWeeknumberText: false,
+      backgroundColor: Colors.transparent,
+      weekdayTextColor: Theme.of(context).disabledColor,
+      digitsColor: Theme.of(context).colorScheme.onSurface,
+      selectedDigitBackgroundColor: Theme.of(context).colorScheme.primary,
+      selectedDigitColor: Theme.of(context).colorScheme.onPrimary,
+    );
   }
 
   List<Widget> loadingIndicator(int count) {
@@ -192,7 +203,8 @@ class _MyHomePageState extends State<MyHomePage> {
     return Center(
       child: Column(
         children: [
-          Icon(Icons.no_food_outlined, size: Theme.of(context).textTheme.displayLarge?.fontSize ?? 40),
+          Icon(Icons.no_food_outlined,
+              size: Theme.of(context).textTheme.displayLarge?.fontSize ?? 40),
           Text("Kein Speiseplan für den gewählten Tag gefunden.",
               style: Theme.of(context).textTheme.bodyLarge),
         ],
@@ -204,24 +216,33 @@ class _MyHomePageState extends State<MyHomePage> {
     String features = meal.features.map((e) => e.abbreviation).join(", ");
     String allergens = meal.allergens.map((e) => e.abbreviation).join(", ");
     String additives = meal.additives.map((e) => e.abbreviation).join(", ");
-    String info = "$features${allergens.isNotEmpty ? " • $allergens" : ""}${additives.isNotEmpty ? " • $additives" : ""}";
+    String info =
+        "$features${allergens.isNotEmpty ? " • $allergens" : ""}${additives.isNotEmpty ? " • $additives" : ""}";
     var card = Card(
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           ListTile(
-            title: Text(meal.name, style: Theme.of(context).textTheme.titleMedium),
+            title:
+                Text(meal.name, style: Theme.of(context).textTheme.titleMedium),
             leading:
                 Icon(meal.isEveningMeal ? Icons.dark_mode : Icons.light_mode),
             subtitle: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Text("${meal.studentPrice.toStringAsFixed(2)}€",
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Theme.of(context).colorScheme.primary)),
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        color: Theme.of(context).colorScheme.primary)),
                 const SizedBox(width: 2),
-                Text("${meal.guestPrice.toStringAsFixed(2)}€", style: Theme.of(context).textTheme.bodyLarge),
+                Text("${meal.guestPrice.toStringAsFixed(2)}€",
+                    style: Theme.of(context).textTheme.bodyLarge),
                 const SizedBox(width: 8),
-                Flexible(child: Text(info, style: Theme.of(context).textTheme.bodyLarge, overflow: TextOverflow.fade, softWrap: false),),
+                Flexible(
+                  child: Text(info,
+                      style: Theme.of(context).textTheme.bodyLarge,
+                      overflow: TextOverflow.fade,
+                      softWrap: false),
+                ),
               ],
             ),
           ),
