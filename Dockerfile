@@ -2,7 +2,7 @@
 FROM ubuntu:latest AS builder
 
 # Install dependencies
-RUN apt-get update && apt-get install -y curl git unzip xz-utils zip libglu1-mesa
+RUN apt-get update && apt-get install -y curl git unzip xz-utils zip libglu1-mesa java-common openjdk-11-jre-headless
 
 # Set up Flutter environment variables
 ENV FLUTTER_HOME=/usr/local/flutter
